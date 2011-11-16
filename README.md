@@ -17,3 +17,10 @@ How to Use
 Given a div element with a fixed height and proper overflow (that is, anything besides "scroll"/"auto"):
 
 	var myScrollable = new Scrollable( $('elem-id') );
+
+Screenshots
+-----------
+
+This section is optional, but encouraged if the plugin affords it. Just a list of images, one per line. We do the resizing, so use actual size screenshots.
+
+![Screenshot 1](http://i.imgur.com/ZKXbK.png)
