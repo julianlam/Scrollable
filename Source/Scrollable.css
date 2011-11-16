@@ -10,8 +10,8 @@ authors:
 
 /* Scrollbar CSS */
 .scrollbar {
-	height: 300px;
 	width: 21px;
+	position: absolute;
 }
 
 .scrollbar .knob {
