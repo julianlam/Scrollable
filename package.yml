@@ -2,3 +2,5 @@ name: Scrollable
 author: julianlam
 category: Interface
 tags: [scroll, scrollbar, mousewheel]
+demo: http://jsfiddle.net/Wk8YP/1/
+current: 0.2.2
