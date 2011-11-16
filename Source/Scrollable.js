@@ -67,9 +67,7 @@ var Scrollable = new Class({
 	reposition: function() {
 		// Repositions the scrollbar by rereading the container element's dimensions/position
 		var initSize = this.element.getComputedSize();
-		console.log(initSize);
 		var containerSize = this.container.getSize();
-		console.log(containerSize);
 		var initPos = this.element.getPosition();
 		this.container.setStyles({
 			height: initSize['height'],
