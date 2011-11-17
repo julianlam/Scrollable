@@ -10,18 +10,18 @@ This implementation is based off of the scrollbar designs found in various place
 4. Automatically detects browser resizing and adjusts all positioning and sizing accordingly.
 5. Automatically adjusts for changes in content
 
-**Note**: *Scrollable currently only works one element at a time. Future support for passing in elements selected via [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) are in the pipeline.*
+***New**: Scrollables now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)*
 
 How to Use
 ----------
 
 ### Syntax
 
-	var myScrollable = new Scrollable(element, options);
+	var myScrollable = new Scrollable(element/elements, options);
 
 ### Arguments
 
-1. element - ([element](http://mootools.net/docs/core/Element/Element#Window:dollar)) The element to make scrollable.
+1. element - ([element/elements](http://mootools.net/docs/core/Element/Element)) The element to make scrollable. Can be selected via $ or $$
 2. options - ([object](http://mootools.net/docs/core/Types/Object), optional) See below.
 
 ### Options
@@ -33,6 +33,22 @@ How to Use
 Given a div element with a fixed height and proper overflow (that is, anything besides "scroll"/"auto"):
 
 	var myScrollable = new Scrollable( $('elem-id') );
+
+Given more than one element, by passing in a CSS selector:
+
+	var myScrollables = new Scrollable( $('.class') );
+
+A more complex example (an unordered list with multiple `li` elements):
+
+	var myScrollables = new Scrollable( $('list').getElements('li') );
+
+Changelog
+---------
+
+### v0.2.3
+* Added documentation regarding the fade and autoHide options, which were already present in v0.2.2
+* Added ability to pass in elements selected via [getElements](http://mootools.net/docs/core/Element/Element#Element:getElements)
+* Fixed [issue #2](https://github.com/julianlam/Scrollable/issues/2), regarding incorrect fading behaviour when scrollbar is in use
 
 Screenshots
 -----------
