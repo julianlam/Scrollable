@@ -98,16 +98,19 @@ var Scrollable = new Class({
 	},
 	reposition: function() {
 		// Repositions the scrollbar by rereading the container element's dimensions/position
-		this.size = this.element.getComputedSize();
-		this.position = this.element.getPosition();
-		var containerSize = this.container.getSize();
+		(function() {
+			this.size = this.element.getComputedSize();
+			console.log(this.size);
+			this.position = this.element.getPosition();
+			var containerSize = this.container.getSize();
 
-		this.container.setStyle('height', this.size['height']);
-		this.container.setPosition({
-			x: (this.position.x+this.size['totalWidth']-containerSize.x),
-			y: (this.position.y+this.size['computedTop'])
-		});
-		this.slider.autosize();
+			this.container.setStyle('height', this.size['height']);
+			this.container.setPosition({
+				x: (this.position.x+this.size['totalWidth']-containerSize.x),
+				y: (this.position.y+this.size['computedTop'])
+			});
+			this.slider.autosize();
+		}).bind(this).delay(50);
 	},
 	isInside: function(e) {
 		if (e.client.x > this.position.x && e.client.x < (this.position.x + this.size.totalWidth) && e.client.y > this.position.y && e.client.y < (this.position.y + this.size.totalHeight))
