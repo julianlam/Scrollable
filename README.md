@@ -45,6 +45,9 @@ A more complex example (an unordered list with multiple `li` elements):
 Changelog
 ---------
 
+### v0.2.4
+* Added ability to define a custom class in the event "scrollbar" is already taken
+
 ### v0.2.3
 * Added documentation regarding the fade and autoHide options, which were already present in v0.2.2
 * Added ability to pass in elements selected via [getElements](http://mootools.net/docs/core/Element/Element#Element:getElements)

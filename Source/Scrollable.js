@@ -30,10 +30,11 @@ var Scrollable = new Class({
 			options = options || {};
 			options.autoHide = (typeOf(options.autoHide) != 'null' ? options.autoHide : 1);
 			options.fade = (typeOf(options.fade) != 'null' ? options.fade : 1);
+			options.className = (typeOf(options.className) != 'null' ? options.className : 'scrollbar');
 
 			// Renders a scrollbar over the given element
 			this.container = new Element('div', {
-				'class': 'scrollbar',
+				'class': options.className,
 				html: '<div class="knob"></div>'
 			}).inject(element, 'bottom');
 			this.slider = new Slider(this.container, this.container.getElement('div'), {
