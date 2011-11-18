@@ -81,8 +81,13 @@ var Scrollable = new Class({
 					this.removeEvents('mouseup');
 				});
 			});
-			window.addEvent('resize', function() {
-				scrollable.reposition.delay(50,scrollable);
+			window.addEvents({
+				'resize': function() {
+					scrollable.reposition.delay(50,scrollable);
+				},
+				'mousewheel': function() {
+					scrollable.reposition();
+				}
 			});
 
 			// Initial hiding of the scrollbar
@@ -97,10 +102,10 @@ var Scrollable = new Class({
 		this.position = this.element.getPosition();
 		var containerSize = this.container.getSize();
 
-		this.container.setStyles({
-			height: this.size['height'],
-			top: (this.position.y+this.size['computedTop']),
-			left: (this.position.x+this.size['totalWidth']-containerSize.x)
+		this.container.setStyle('height', this.size['height']);
+		this.container.setPosition({
+			x: (this.position.x+this.size['totalWidth']-containerSize.x),
+			y: (this.position.y+this.size['computedTop'])
 		});
 		this.slider.autosize();
 	},
