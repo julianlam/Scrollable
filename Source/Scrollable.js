@@ -100,7 +100,6 @@ var Scrollable = new Class({
 		// Repositions the scrollbar by rereading the container element's dimensions/position
 		(function() {
 			this.size = this.element.getComputedSize();
-			console.log(this.size);
 			this.position = this.element.getPosition();
 			var containerSize = this.container.getSize();
 
