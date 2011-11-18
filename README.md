@@ -10,7 +10,7 @@ This implementation is based off of the scrollbar designs found in various place
 4. Automatically detects browser resizing and adjusts all positioning and sizing accordingly.
 5. Automatically adjusts for changes in content
 
-***New**: Scrollables now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)*
+***New**: Scrollable now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)*
 
 How to Use
 ----------
@@ -44,6 +44,9 @@ A more complex example (an unordered list with multiple `li` elements):
 
 Changelog
 ---------
+
+### Latest revision of branch "master"
+* Updated Scrollable to support target elements like `<textarea>`
 
 ### v0.2.4
 * Added ability to define a custom class in the event "scrollbar" is already taken
