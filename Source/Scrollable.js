@@ -31,12 +31,13 @@ var Scrollable = new Class({
 			options.autoHide = (typeOf(options.autoHide) != 'null' ? options.autoHide : 1);
 			options.fade = (typeOf(options.fade) != 'null' ? options.fade : 1);
 			options.className = (typeOf(options.className) != 'null' ? options.className : 'scrollbar');
+			this.options = options;
 
 			// Renders a scrollbar over the given element
 			this.container = new Element('div', {
 				'class': options.className,
 				html: '<div class="knob"></div>'
-			}).inject(element, 'bottom');
+			}).inject(document.body, 'bottom');
 			this.slider = new Slider(this.container, this.container.getElement('div'), {
 				mode: 'vertical',
 				onChange: function(step) {
@@ -44,39 +45,41 @@ var Scrollable = new Class({
 				}
 			});
 			this.reposition.delay(50, this);
+			this.knob = this.container.getElement('div');
 
 			// Making the element scrollable via mousewheel
 			element.addEvents({
 				'mouseover': function() {
 					if (this.scrollHeight > this.clientHeight) {
-						if (options.autoHide && options.fade && !scrollable.active) scrollable.container.fade('in');
-						else if (options.autoHide && !options.fade && !scrollable.active) scrollable.container.fade('show');
-	
-						this.addEvent('mousewheel', function(event) {
-							event.preventDefault();	// Stops the entire page from scrolling
-							this.scrollTop = this.scrollTop - (event.wheel * 30);
-							scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - element.clientHeight)) * 100));
-						});
+						scrollable.showContainer();
 					}
 				},
-				'mouseout': function() {
-					if (options.autoHide && options.fade && !scrollable.active) scrollable.container.fade('out');
-					else if (options.autoHide && !options.fade && !scrollable.active) scrollable.container.fade('hide');
-	
-					this.removeEvents('mousewheel');
+				'mouseleave': function(e) {
+					if (!scrollable.isInside(e) && !scrollable.active) {
+						scrollable.hideContainer();
+					}
 				},
-				'mousedown': function() {
-					scrollable.active = true;
-					window.addEvent('mouseup', function(e) {
-						scrollable.active = false;
-						if (e.event.x < scrollable.position.x || e.event.x > (scrollable.position.x + scrollable.size.totalWidth) || e.event.y < scrollable.position.y || e.event.y > (scrollable.position.y + scrollable.size.totalHeight)) {
-							// If mouse is outside the boundaries of the target element
-							if (options.autoHide && options.fade && !scrollable.active) scrollable.container.fade('out');
-							else if (options.autoHide && !options.fade && !scrollable.active) scrollable.container.fade('hide');
-						}
-						this.removeEvents('mouseup');
-					});
+				'mousewheel': function(event) {
+					event.preventDefault();	// Stops the entire page from scrolling
+					this.scrollTop = this.scrollTop - (event.wheel * 30);
+					scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - element.clientHeight)) * 100));
 				}
+			});
+			this.container.addEvent('mouseleave', function() {
+				if (!scrollable.active) {
+					scrollable.hideContainer();
+				}
+			});
+			this.knob.addEvent('mousedown', function(e) {
+				scrollable.active = true;
+				window.addEvent('mouseup', function(e) {
+					scrollable.active = false;
+					if (!scrollable.isInside(e)) {
+						// If mouse is outside the boundaries of the target element
+						scrollable.hideContainer();
+					}
+					this.removeEvents('mouseup');
+				});
 			});
 			window.addEvent('resize', function() {
 				scrollable.reposition.delay(50,scrollable);
@@ -100,5 +103,18 @@ var Scrollable = new Class({
 			left: (this.position.x+this.size['totalWidth']-containerSize.x)
 		});
 		this.slider.autosize();
+	},
+	isInside: function(e) {
+		if (e.client.x > this.position.x && e.client.x < (this.position.x + this.size.totalWidth) && e.client.y > this.position.y && e.client.y < (this.position.y + this.size.totalHeight))
+			return true;
+		else return false;
+	},
+	showContainer: function() {
+		if (this.options.autoHide && this.options.fade && !this.active) this.container.fade('in');
+		else if (this.options.autoHide && !this.options.fade && !this.active) this.container.fade('show');	
+	},
+	hideContainer: function() {
+		if (this.options.autoHide && this.options.fade && !this.active) this.container.fade('out');
+		else if (this.options.autoHide && !this.options.fade && !this.active) this.container.fade('hide');
 	}
 });
