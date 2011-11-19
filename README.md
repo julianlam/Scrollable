@@ -45,7 +45,7 @@ A more complex example (an unordered list with multiple `li` elements):
 Changelog
 ---------
 
-### Latest revision of branch "master"
+### v0.2.5
 * Updated Scrollable to support target elements like `<textarea>`
 
 ### v0.2.4
