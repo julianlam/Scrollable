@@ -12,6 +12,10 @@ authors:
 .scrollbar {
 	width: 21px;
 	position: absolute;
+	top: 0px;
+	left: 0px;
+	opacity: 0;
+	visibility: hidden;
 }
 
 .scrollbar .knob {

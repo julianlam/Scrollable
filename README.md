@@ -45,6 +45,10 @@ A more complex example (an unordered list with multiple `li` elements):
 Changelog
 ---------
 
+### v0.2.6
+* Fixed [issue #5](https://github.com/julianlam/Scrollable/issues/5), regarding incorrect positioning in certain circumstances involving instantiation and the page scrollbar
+* Fixed bug where scrollbar was visible for a fraction of a second before being hidden/repositioned.
+
 ### v0.2.5
 * Updated Scrollable to support target elements like `<textarea>`
 

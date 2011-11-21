@@ -44,7 +44,8 @@ var Scrollable = new Class({
 					element.scrollTop = ((element.scrollHeight - element.clientHeight) * (step / 100));
 				}
 			});
-			this.reposition.delay(50, this);
+			this.reposition();
+			if (!options.autoHide) this.container.fade('show');
 			this.knob = this.container.getElement('div');
 
 			// Making the element scrollable via mousewheel
@@ -103,8 +104,7 @@ var Scrollable = new Class({
 			this.position = this.element.getPosition();
 			var containerSize = this.container.getSize();
 
-			this.container.setStyle('height', this.size['height']);
-			this.container.setPosition({
+			this.container.setStyle('height', this.size['height']).setPosition({
 				x: (this.position.x+this.size['totalWidth']-containerSize.x),
 				y: (this.position.y+this.size['computedTop'])
 			});
