@@ -61,9 +61,11 @@ var Scrollable = new Class({
 					}
 				},
 				'mousewheel': function(event) {
-					event.preventDefault();	// Stops the entire page from scrolling
-					this.scrollTop = this.scrollTop - (event.wheel * 30);
-					scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - element.clientHeight)) * 100));
+					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
+						event.preventDefault();	// Stops the entire page from scrolling
+						this.scrollTop = this.scrollTop - (event.wheel * 30);
+						scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - element.clientHeight)) * 100));
+					}
 				}
 			});
 			this.container.addEvent('mouseleave', function() {
@@ -87,7 +89,7 @@ var Scrollable = new Class({
 					scrollable.reposition.delay(50,scrollable);
 				},
 				'mousewheel': function() {
-					scrollable.reposition();
+					if (scrollable.element.isVisible()) scrollable.reposition();
 				}
 			});
 
@@ -123,5 +125,8 @@ var Scrollable = new Class({
 	hideContainer: function() {
 		if (this.options.autoHide && this.options.fade && !this.active) this.container.fade('out');
 		else if (this.options.autoHide && !this.options.fade && !this.active) this.container.fade('hide');
+	},
+	terminate: function() {
+		this.container.destroy();
 	}
 });

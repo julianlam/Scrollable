@@ -48,6 +48,8 @@ Changelog
 ### v0.2.6
 * Fixed [issue #5](https://github.com/julianlam/Scrollable/issues/5), regarding incorrect positioning in certain circumstances involving instantiation and the page scrollbar
 * Fixed bug where scrollbar was visible for a fraction of a second before being hidden/repositioned.
+# Fixed issue where scrolling of the page was always blocked by a Scrollable instance, even if the target element has been scrolled to the top/bottom already
+# Added "terminate();", which should be called to remove any existing instances of Scrollable
 
 ### v0.2.5
 * Updated Scrollable to support target elements like `<textarea>`
