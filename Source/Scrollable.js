@@ -50,6 +50,9 @@ var Scrollable = new Class({
 
 			// Making the element scrollable via mousewheel
 			element.addEvents({
+				'mouseenter': function() {
+					scrollable.reposition();
+				},
 				'mouseover': function() {
 					if (this.scrollHeight > this.clientHeight) {
 						scrollable.showContainer();
