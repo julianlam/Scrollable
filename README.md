@@ -36,7 +36,7 @@ Given a div element with a fixed height and proper overflow (that is, anything b
 
 Given more than one element, by passing in a CSS selector:
 
-	var myScrollables = new Scrollable( $('.class') );
+	var myScrollables = new Scrollable( $$('.class') );
 
 A more complex example (an unordered list with multiple `li` elements):
 
@@ -44,6 +44,11 @@ A more complex example (an unordered list with multiple `li` elements):
 
 Changelog
 ---------
+
+### v0.2.7 (Proposed)
+* Merged code submitted by zwacky, resolving issues 6 and 8
+* Added "force" arguments to `showContainer();` and `hideContainer();` if the scrollbar needs to be forcibly hidden/shown (i.e. parent element of container is hidden, but the container itself is not)
+* Fixed minor bug in the examples section of the readme
 
 ### v0.2.6
 * Fixed [issue #5](https://github.com/julianlam/Scrollable/issues/5), regarding incorrect positioning in certain circumstances involving instantiation and the page scrollbar

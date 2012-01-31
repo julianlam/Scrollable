@@ -121,13 +121,13 @@ var Scrollable = new Class({
 			return true;
 		else return false;
 	},
-	showContainer: function() {
-		if (this.options.autoHide && this.options.fade && !this.active) this.container.fade('in');
-		else if (this.options.autoHide && !this.options.fade && !this.active) this.container.fade('show');	
+	showContainer: function(force) {
+		if ((this.options.autoHide && this.options.fade && !this.active) || (force && this.options.fade)) this.container.fade('in');
+		else if ((this.options.autoHide && !this.options.fade && !this.active) || (force && !this.options.fade)) this.container.fade('show');
 	},
-	hideContainer: function() {
-		if (this.options.autoHide && this.options.fade && !this.active) this.container.fade('out');
-		else if (this.options.autoHide && !this.options.fade && !this.active) this.container.fade('hide');
+	hideContainer: function(force) {
+		if ((this.options.autoHide && this.options.fade && !this.active) || (force && this.options.fade)) this.container.fade('out');
+		else if ((this.options.autoHide && !this.options.fade && !this.active) || (force && !this.options.fade)) this.container.fade('hide');
 	},
 	terminate: function() {
 		this.container.destroy();
