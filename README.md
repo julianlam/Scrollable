@@ -45,10 +45,12 @@ A more complex example (an unordered list with multiple `li` elements):
 Changelog
 ---------
 
-### v0.2.7 (Proposed)
+### v0.2.7
 * Merged code submitted by zwacky, resolving issues 6 and 8
 * Added "force" arguments to `showContainer();` and `hideContainer();` if the scrollbar needs to be forcibly hidden/shown (i.e. parent element of container is hidden, but the container itself is not)
 * Fixed minor bug in the examples section of the readme
+* Fixed issue #9 - Scrollable errors out when string is passed in as target
+* Fixed issue #10 - Omission of "Sources" line in package.yml
 
 ### v0.2.6
 * Fixed [issue #5](https://github.com/julianlam/Scrollable/issues/5), regarding incorrect positioning in certain circumstances involving instantiation and the page scrollbar

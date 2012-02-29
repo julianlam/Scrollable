@@ -23,7 +23,9 @@ var Scrollable = new Class({
 		}
 		else {
 			var scrollable = this;
-			this.element = element;
+			if (typeOf(element) == 'element') this.element = element;
+			else if (typeOf(element) == 'string') this.element = $(element);
+			else return 0;
 			this.active = false;
 	
 			// Some default options
@@ -41,7 +43,7 @@ var Scrollable = new Class({
 			this.slider = new Slider(this.container, this.container.getElement('div'), {
 				mode: 'vertical',
 				onChange: function(step) {
-					element.scrollTop = ((element.scrollHeight - element.clientHeight) * (step / 100));
+					this.element.scrollTop = ((this.element.scrollHeight - this.element.clientHeight) * (step / 100));
 				}
 			});
 			this.reposition();
@@ -49,7 +51,7 @@ var Scrollable = new Class({
 			this.knob = this.container.getElement('div');
 
 			// Making the element scrollable via mousewheel
-			element.addEvents({
+			this.element.addEvents({
 				'mouseenter': function() {
 					scrollable.reposition();
 				},
@@ -67,7 +69,7 @@ var Scrollable = new Class({
 					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
 						event.preventDefault();	// Stops the entire page from scrolling
 						this.scrollTop = this.scrollTop - (event.wheel * 30);
-						scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - element.clientHeight)) * 100));
+						scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - this.clientHeight)) * 100));
 					}
 				}
 			});
