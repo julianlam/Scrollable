@@ -13,6 +13,14 @@ provides: [Scrollable]
 */
 
 var Scrollable = new Class({
+	Implements: Options,
+
+	options: {
+		autoHide: 1,
+		fade: 1,
+		className: 'scrollbar'
+	},
+
 	initialize: function(element, options) {
 		if (typeOf(element) == 'elements') {
 			var collection = [];
@@ -22,22 +30,17 @@ var Scrollable = new Class({
 			return collection;
 		}
 		else {
+			this.setOptions(options);
+
 			var scrollable = this;
-			if (typeOf(element) == 'element') this.element = element;
-			else if (typeOf(element) == 'string') this.element = $(element);
-			else return 0;
+			this.element = document.id(element);
+			if (!this.element) return 0;
+
 			this.active = false;
-	
-			// Some default options
-			options = options || {};
-			options.autoHide = (typeOf(options.autoHide) != 'null' ? options.autoHide : 1);
-			options.fade = (typeOf(options.fade) != 'null' ? options.fade : 1);
-			options.className = (typeOf(options.className) != 'null' ? options.className : 'scrollbar');
-			this.options = options;
 
 			// Renders a scrollbar over the given element
 			this.container = new Element('div', {
-				'class': options.className,
+				'class': this.options.className,
 				html: '<div class="knob"></div>'
 			}).inject(document.body, 'bottom');
 			this.slider = new Slider(this.container, this.container.getElement('div'), {
@@ -47,7 +50,7 @@ var Scrollable = new Class({
 				}
 			});
 			this.reposition();
-			if (!options.autoHide) this.container.fade('show');
+			if (!this.options.autoHide) this.container.fade('show');
 			this.knob = this.container.getElement('div');
 
 			// Making the element scrollable via mousewheel
@@ -99,7 +102,7 @@ var Scrollable = new Class({
 			});
 
 			// Initial hiding of the scrollbar
-			if (options.autoHide) scrollable.container.fade('hide');
+			if (this.options.autoHide) scrollable.container.fade('hide');
 
 			return this;
 		}
