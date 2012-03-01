@@ -13,12 +13,13 @@ provides: [Scrollable]
 */
 
 var Scrollable = new Class({
-	Implements: Options,
+	Implements: [Options, Events],
 
 	options: {
 		autoHide: 1,
 		fade: 1,
-		className: 'scrollbar'
+		className: 'scrollbar'/*,
+		onContentHeightChange: function(){}*/
 	},
 
 	initialize: function(element, options) {
@@ -69,11 +70,16 @@ var Scrollable = new Class({
 					}
 				},
 				'mousewheel': function(event) {
+					event.preventDefault();	// Stops the entire page from scrolling when mouse is located over the element
 					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
-						event.preventDefault();	// Stops the entire page from scrolling
 						this.scrollTop = this.scrollTop - (event.wheel * 30);
-						scrollable.slider.set(Math.round((this.scrollTop / (this.scrollHeight - this.clientHeight)) * 100));
+						scrollable.readjustKnobPosition();
 					}
+				},
+				'Scrollable:contentHeightChange': function() {
+						//this scrollable:contentHeightChange could be fired on the current element in order
+						//to get a custom action invoked (implemented in onContentHeightChange option)
+					scrollable.fireEvent('contentHeightChange');
 				}
 			});
 			this.container.addEvent('mouseleave', function() {
@@ -121,6 +127,30 @@ var Scrollable = new Class({
 			this.slider.autosize();
 		}).bind(this).delay(50);
 	},
+
+	/**
+	 * Positions the knob relatively to the actual content's position
+	 */
+	readjustKnobPosition: function() {
+		this.slider.set(Math.round((this.element.scrollTop / (this.element.scrollHeight - this.element.clientHeight)) * 100));
+	},
+
+	/**
+	 * Scrolls the scrollable area to the bottommost position
+	 */
+	scrollBottom: function() {
+		this.element.scrollTop = this.element.scrollHeight;
+		this.readjustKnobPosition();
+	},
+
+	/**
+	 * Scrolls the scrollable area to the topmost position
+	 */
+	scrollTop: function() {
+		this.element.scrollTop = 0;
+		this.readjustKnobPosition();
+	},
+
 	isInside: function(e) {
 		if (e.client.x > this.position.x && e.client.x < (this.position.x + this.size.totalWidth) && e.client.y > this.position.y && e.client.y < (this.position.y + this.size.totalHeight))
 			return true;
