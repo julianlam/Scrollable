@@ -45,6 +45,9 @@ A more complex example (an unordered list with multiple `li` elements):
 Changelog
 ---------
 
+### v0.2.8 (Proposed)
+* Changed all instances of $() to use document.id ([Commit Notes](https://github.com/julianlam/Scrollable/commit/d5ee806270c400bc20e1ef22053ea6b9a82bf42e))
+
 ### v0.2.7
 * Merged code submitted by zwacky, resolving issues 6 and 8
 * Added "force" arguments to `showContainer();` and `hideContainer();` if the scrollbar needs to be forcibly hidden/shown (i.e. parent element of container is hidden, but the container itself is not)

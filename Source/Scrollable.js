@@ -23,9 +23,8 @@ var Scrollable = new Class({
 		}
 		else {
 			var scrollable = this;
-			if (typeOf(element) == 'element') this.element = element;
-			else if (typeOf(element) == 'string') this.element = $(element);
-			else return 0;
+			this.element = document.id(element);
+			if (!this.element) return 0;
 			this.active = false;
 	
 			// Some default options
