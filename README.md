@@ -53,8 +53,6 @@ A more complex example (an container with multiple `ul` elements to add scrollba
 
 	var myScrollables = new Scrollable( $('container').getElements('ul') );
 
-Given an element and some custom options (see 
-
 Changelog
 ---------
 
