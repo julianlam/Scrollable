@@ -48,7 +48,7 @@ var Scrollable = new Class({
 				mode: 'vertical',
 				onChange: function(step) {
 					this.element.scrollTop = ((this.element.scrollHeight - this.element.clientHeight) * (step / 100));
-				}
+				}.bind(this)
 			});
 			this.reposition();
 			if (!this.options.autoHide) this.container.fade('show');
@@ -73,7 +73,7 @@ var Scrollable = new Class({
 					event.preventDefault();	// Stops the entire page from scrolling when mouse is located over the element
 					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
 						this.scrollTop = this.scrollTop - (event.wheel * 30);
-						scrollable.readjustKnobPosition();
+						scrollable.reposition();
 					}
 				},
 				'Scrollable:contentHeightChange': function() {
@@ -126,12 +126,7 @@ var Scrollable = new Class({
 			});
 			this.slider.autosize();
 		}).bind(this).delay(50);
-	},
 
-	/**
-	 * Positions the knob relatively to the actual content's position
-	 */
-	readjustKnobPosition: function() {
 		this.slider.set(Math.round((this.element.scrollTop / (this.element.scrollHeight - this.element.clientHeight)) * 100));
 	},
 
@@ -140,7 +135,7 @@ var Scrollable = new Class({
 	 */
 	scrollBottom: function() {
 		this.element.scrollTop = this.element.scrollHeight;
-		this.readjustKnobPosition();
+		this.reposition();
 	},
 
 	/**
@@ -148,7 +143,7 @@ var Scrollable = new Class({
 	 */
 	scrollTop: function() {
 		this.element.scrollTop = 0;
-		this.readjustKnobPosition();
+		this.reposition();
 	},
 
 	isInside: function(e) {

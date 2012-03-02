@@ -27,8 +27,19 @@ How to Use
 ### Options
 * autoHide (truthy: defaults to true) If set to true, hides the scrollbar when the mouse is not over the target element. Otherwise, the scrollbar will stay visible at all times.
 * fade (truthy: defaults to true) If set to true, a fade effect will be applied to the showing and hiding of the scrollbar.
+* className (string) If set, will change which class is assigned to the scrollable. Useful if you already have a CSS class named "scrollbar", and do not want to conflict
 
-### Example
+### Events
+
+#### contentheightchange
+
+Fired when the height of the target element changes
+
+##### Signature:
+
+    onContentHeightChange()
+
+### Examples
 
 Given a div element with a fixed height and proper overflow (that is, anything besides "scroll"/"auto"):
 
@@ -38,15 +49,19 @@ Given more than one element, by passing in a CSS selector:
 
 	var myScrollables = new Scrollable( $$('.class') );
 
-A more complex example (an unordered list with multiple `li` elements):
+A more complex example (an container with multiple `ul` elements to add scrollbars to):
 
-	var myScrollables = new Scrollable( $('list').getElements('li') );
+	var myScrollables = new Scrollable( $('container').getElements('ul') );
+
+Given an element and some custom options (see 
 
 Changelog
 ---------
 
-### v0.2.8
+### v0.2.8.1
 * Merged changes from afoeder into Scrollable (Implementation of Options Class, and replacement of `$()` with `document.id();`
+* Added new methods `scrollBottom();` and `scrollTop();`, and new event `onContentHeightChange`
+* Fixed issue with broken knob dragging ([Issue 14](https://github.com/julianlam/Scrollable/pull/14))
 
 ### v0.2.7
 * Merged code submitted by zwacky, resolving issues 6 and 8

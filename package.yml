@@ -3,6 +3,6 @@ author: julianlam
 category: Interface
 tags: [scroll, scrollbar, mousewheel]
 demo: http://jsfiddle.net/julianlam/Wk8YP/109/
-current: 0.2.8
+current: 0.2.8.1
 sources:
   - "Source/Scrollable.js"
