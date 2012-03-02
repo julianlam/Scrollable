@@ -27,7 +27,7 @@ var Scrollable = new Class({
 			else if (typeOf(element) == 'string') this.element = $(element);
 			else return 0;
 			this.active = false;
-	
+
 			// Some default options
 			options = options || {};
 			options.autoHide = (typeOf(options.autoHide) != 'null' ? options.autoHide : 1);
@@ -44,7 +44,7 @@ var Scrollable = new Class({
 				mode: 'vertical',
 				onChange: function(step) {
 					this.element.scrollTop = ((this.element.scrollHeight - this.element.clientHeight) * (step / 100));
-				}
+				}.bind(this)
 			});
 			this.reposition();
 			if (!options.autoHide) this.container.fade('show');
