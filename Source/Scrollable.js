@@ -18,11 +18,15 @@ var Scrollable = new Class({
 	options: {
 		autoHide: 1,
 		fade: 1,
-		className: 'scrollbar'/*,
+		className: 'scrollbar',
+		proportional: true,
+		proportionalMinHeight: 15/*,
 		onContentHeightChange: function(){}*/
 	},
 
 	initialize: function(element, options) {
+		this.setOptions(options);
+
 		if (typeOf(element) == 'elements') {
 			var collection = [];
 			element.each(function(element) {
@@ -31,8 +35,6 @@ var Scrollable = new Class({
 			return collection;
 		}
 		else {
-			this.setOptions(options);
-
 			var scrollable = this;
 			this.element = document.id(element);
 			if (!this.element) return 0;
@@ -50,25 +52,23 @@ var Scrollable = new Class({
 					this.element.scrollTop = ((this.element.scrollHeight - this.element.clientHeight) * (step / 100));
 				}.bind(this)
 			});
+			this.knob = this.container.getElement('div');
 			this.reposition();
 			if (!this.options.autoHide) this.container.fade('show');
-			this.knob = this.container.getElement('div');
 
-			// Making the element scrollable via mousewheel
 			this.element.addEvents({
 				'mouseenter': function() {
-					scrollable.reposition();
-				},
-				'mouseover': function() {
 					if (this.scrollHeight > this.clientHeight) {
 						scrollable.showContainer();
 					}
+					scrollable.reposition();
 				},
 				'mouseleave': function(e) {
 					if (!scrollable.isInside(e) && !scrollable.active) {
 						scrollable.hideContainer();
 					}
 				},
+					// Making the element scrollable via mousewheel
 				'mousewheel': function(event) {
 					event.preventDefault();	// Stops the entire page from scrolling when mouse is located over the element
 					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
@@ -126,6 +126,16 @@ var Scrollable = new Class({
 			});
 			this.slider.autosize();
 		}).bind(this).delay(50);
+
+		if (this.options.proportional === true) {
+			if (isNaN(this.options.proportionalMinHeight) || this.options.proportionalMinHeight <= 0) {
+				throw new Error('Scrollable: option "proportionalMinHeight" is not a positive number.');
+			} else {
+				var minHeight = Math.abs(this.options.proportionalMinHeight);
+				var knobHeight = this.element.offsetHeight * (this.element.offsetHeight / this.element.scrollHeight);
+				this.knob.setStyle('height', Math.max(knobHeight, minHeight));
+			}
+		}
 
 		this.slider.set(Math.round((this.element.scrollTop / (this.element.scrollHeight - this.element.clientHeight)) * 100));
 	},
