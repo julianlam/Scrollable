@@ -49,7 +49,7 @@ var Scrollable = new Class({
 			this.slider = new Slider(this.container, this.container.getElement('div'), {
 				mode: 'vertical',
 				onChange: function(step) {
-					this.element.scrollTop = ((this.element.scrollHeight - this.element.clientHeight) * (step / 100));
+					this.element.scrollTop = ((this.element.scrollHeight - this.element.offsetHeight) * (step / 100));
 				}.bind(this)
 			});
 			this.knob = this.container.getElement('div');
@@ -58,7 +58,7 @@ var Scrollable = new Class({
 
 			this.element.addEvents({
 				'mouseenter': function() {
-					if (this.scrollHeight > this.clientHeight) {
+					if (this.scrollHeight > this.offsetHeight) {
 						scrollable.showContainer();
 					}
 					scrollable.reposition();
@@ -137,7 +137,7 @@ var Scrollable = new Class({
 			}
 		}
 
-		this.slider.set(Math.round((this.element.scrollTop / (this.element.scrollHeight - this.element.clientHeight)) * 100));
+		this.slider.set(Math.round((this.element.scrollTop / (this.element.scrollHeight - this.element.offsetHeight)) * 100));
 	},
 
 	/**
