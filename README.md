@@ -53,8 +53,18 @@ A more complex example (an container with multiple `ul` elements to add scrollba
 
 	var myScrollables = new Scrollable( $('container').getElements('ul') );
 
+Saving the resulting object into the target element using the Element Store:
+
+	$('container').store('scrollable', new Scrollable( $('container') ));
+
+**Note**: Like some other plugins (e.g. [More/Tips](http://mootools.net/docs/more/Interface/Tips)), Scrollable creates an element into the document body. It is recommended that you call `terminate();` once you are finished with it. This is only applicable for pages where content is dynamically loaded and unloaded.
+
 Changelog
 ---------
+
+### v0.2.9
+* New feature (thanks to afoeder!) -- Variable height knob
+* Recommending use of Element Store in readme
 
 ### v0.2.8.1
 * Merged changes from afoeder into Scrollable (Implementation of Options Class, and replacement of `$()` with `document.id();`
