@@ -89,3 +89,11 @@ Screenshots
 -----------
 
 ![Screenshot 1](http://i.imgur.com/ZKXbK.png)
+
+Credits
+-------
+
+I'd like to thank the following contributors for their assistance with debugging, bugfixing, and enhancing Scrollable:
+
+* Adrian Föder ([afoeder](https://github.com/afoeder))
+* Simon ([zwacky](https://github.com/zwacky))
