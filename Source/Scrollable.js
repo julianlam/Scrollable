@@ -35,7 +35,6 @@ var Scrollable = new Class({
 			return collection;
 		}
 		else {
-			var scrollable = this;
 			this.element = document.id(element);
 			if (!this.element) return 0;
 
@@ -56,63 +55,76 @@ var Scrollable = new Class({
 			this.reposition();
 			if (!this.options.autoHide) this.container.fade('show');
 
+			var self = this;
 			this.element.addEvents({
 				'mouseenter': function() {
-					if (this.scrollHeight > this.offsetHeight) {
-						scrollable.showContainer();
+					if (self.isScrollingRequired()) {
+						self.showContainer();
 					}
-					scrollable.reposition();
+					self.reposition();
 				},
 				'mouseleave': function(e) {
-					if (!scrollable.isInside(e) && !scrollable.active) {
-						scrollable.hideContainer();
+					if (!self.isInside(e) && !self.active) {
+						self.hideContainer();
 					}
 				},
-					// Making the element scrollable via mousewheel
+					// make the element scrollable via mousewheel
 				'mousewheel': function(event) {
-					event.preventDefault();	// Stops the entire page from scrolling when mouse is located over the element
+					if (self.isScrollingRequired()) {
+							// stop the entire page from scrolling when mouse is located over the element
+						event.preventDefault();
+					}
 					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
 						this.scrollTop = this.scrollTop - (event.wheel * 30);
-						scrollable.reposition();
+						self.reposition();
 					}
 				},
 				'Scrollable:contentHeightChange': function() {
 						//this scrollable:contentHeightChange could be fired on the current element in order
 						//to get a custom action invoked (implemented in onContentHeightChange option)
-					scrollable.fireEvent('contentHeightChange');
+					self.fireEvent('contentHeightChange');
 				}
 			});
 			this.container.addEvent('mouseleave', function() {
-				if (!scrollable.active) {
-					scrollable.hideContainer();
+				if (!self.active) {
+					self.hideContainer();
 				}
 			});
 			this.knob.addEvent('mousedown', function(e) {
-				scrollable.active = true;
+				self.active = true;
 				window.addEvent('mouseup', function(e) {
-					scrollable.active = false;
-					if (!scrollable.isInside(e)) {
+					self.active = false;
+					if (!self.isInside(e)) {
 						// If mouse is outside the boundaries of the target element
-						scrollable.hideContainer();
+						self.hideContainer();
 					}
 					this.removeEvents('mouseup');
 				});
 			});
 			window.addEvents({
 				'resize': function() {
-					scrollable.reposition.delay(50,scrollable);
+					self.reposition.delay(50, self);
 				},
 				'mousewheel': function() {
-					if (scrollable.element.isVisible()) scrollable.reposition();
+					if (self.element.isVisible()) self.reposition();
 				}
 			});
 
 			// Initial hiding of the scrollbar
-			if (this.options.autoHide) scrollable.container.fade('hide');
+			if (this.options.autoHide) this.container.fade('hide');
 
 			return this;
 		}
 	},
+
+	/**
+	 * Whether at the current situation scrolling is required, i.e. if the content overflows and scrollbars must be shown.
+	 * @return Boolean
+	 */
+	isScrollingRequired: function() {
+		return this.element.scrollHeight > this.element.offsetHeight;
+	},
+
 	reposition: function() {
 		// Repositions the scrollbar by rereading the container element's dimensions/position
 		(function() {
