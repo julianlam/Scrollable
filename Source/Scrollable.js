@@ -7,7 +7,7 @@ authors:
 - Julian Lam (julianlam)
 requires:
 - core/1.4.1: '*'
-- more/1.4.0.1: [Slider, Element.measure]
+- more/1.4.0.1: [Slider, Element.Measure, Element.Shortcuts]
 provides: [Scrollable]
 ...
 */
