@@ -10,7 +10,7 @@ This implementation is based off of the scrollbar designs found in various place
 4. Automatically detects browser resizing and adjusts all positioning and sizing accordingly.
 5. Automatically adjusts for changes in content
 
-***New**: Scrollable now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)*
+_**New**: Scrollable now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)_
 
 How to Use
 ----------
