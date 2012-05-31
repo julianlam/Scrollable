@@ -10,7 +10,7 @@ This implementation is based off of the scrollbar designs found in various place
 4. Automatically detects browser resizing and adjusts all positioning and sizing accordingly.
 5. Automatically adjusts for changes in content
 
-***New**: Scrollable now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)*
+_**New**: Scrollable now accepts the [$$](http://mootools.net/docs/core/Element/Element#Window:dollars) selector in addition to the regular [$](http://mootools.net/docs/core/Element/Element#Window:dollar)_
 
 How to Use
 ----------
@@ -28,6 +28,8 @@ How to Use
 * autoHide (truthy: defaults to true) If set to true, hides the scrollbar when the mouse is not over the target element. Otherwise, the scrollbar will stay visible at all times.
 * fade (truthy: defaults to true) If set to true, a fade effect will be applied to the showing and hiding of the scrollbar.
 * className (string) If set, will change which class is assigned to the scrollable. Useful if you already have a CSS class named "scrollbar", and do not want to conflict
+* proportional (boolean: defaults to true) If set to true, sets the height of the scrollbar to be proportional to the height of the target element.
+* proportionalMinHeight (number: defaults to 15) Sets a minimum height for the scrollbar when proportional is true. Must be a positive, non-zero, number.
 
 ### Events
 
