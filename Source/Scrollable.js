@@ -64,7 +64,7 @@ var Scrollable = new Class({
 					self.reposition();
 				},
 				'mouseleave': function(e) {
-					if (!self.isInside(e) && !self.active) {
+					if (e.relatedTarget != self.container) {
 						self.hideContainer();
 					}
 				},
