@@ -79,6 +79,18 @@ var Scrollable = new Class({
 						self.reposition();
 					}
 				},
+					// make the element scrollable via mousewheel (firefox)
+				'DOMMouseScroll': function(event) {
+					if (self.isScrollingRequired()) {
+							// stop the entire page from scrolling when mouse is located over the element
+						event.preventDefault();
+					}
+					if ((event.wheel < 0 && this.scrollTop < (this.scrollHeight - this.offsetHeight)) || (event.wheel > 0 && this.scrollTop > 0)) {
+						this.scrollTop = this.scrollTop - (event.wheel * 30);
+						self.reposition();
+					}
+				},
+
 				'Scrollable:contentHeightChange': function() {
 						//this scrollable:contentHeightChange could be fired on the current element in order
 						//to get a custom action invoked (implemented in onContentHeightChange option)
